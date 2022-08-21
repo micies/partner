@@ -16,7 +16,7 @@ export function GetInput({ value, name, disabled }) {
   );
 }
 
-export function Modal1({ confirmFunc, text }) {
+export function ModalDelete({ confirmFunc, text }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

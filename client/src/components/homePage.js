@@ -2,31 +2,29 @@ import React, { useState, useEffect } from "react";
 import { Delete, Get, Post } from "../BaseService";
 import { Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
-import { Modal1 } from "../data";
+import { ModalDelete } from "../componentsToFunctions";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function HomePage() {
-  const [actor, setActor] = useState([]);
+  const [actors, setActors] = useState([]);
   const [ttl, setTtl] = useState();
 
   let arr = [];
 
-  for (let i = 0; i < actor.length; i++) {
-    arr.push(actor[i].person);
+  for (let i = 0; i < actors.length; i++) {
+    arr.push(actors[i].person);
   }
 
-
-  console.log(arr)
+  console.log(arr);
 
   useEffect(() => {
-    Get(setActor, "http://localhost:4000/actor");
+    Get(setActors, "http://localhost:4000/actor");
   }, []);
   const deleteFiled = (id) => {
     console.log(id);
     Delete(id, "http://localhost:4000/actor");
-    setActor(delete actor.id);
-
+    setActors(delete actors.id);
     handleClose();
   };
 
@@ -40,7 +38,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <h1>actors id</h1>
+      <h1>actorss id</h1>
       <div>
         <form onSubmit={handleSubmit}>
           enter time to refresh cache (in seconds):
@@ -78,7 +76,7 @@ export default function HomePage() {
                   </Link>
                 </td>
                 <td>
-                  <Modal1
+                  <ModalDelete
                     confirmFunc={() => deleteFiled(item.id)}
                     text={`?${item.id} האם אתה בטוח שאתה מעוניין למחוק את`}
                   />

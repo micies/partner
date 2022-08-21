@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useLocation } from "react-router-dom";
 import { Get, Post } from "../BaseService";
-import { GetInput } from "../data";
+import { GetInput } from "../componentsToFunctions";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
