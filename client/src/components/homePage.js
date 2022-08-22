@@ -10,15 +10,6 @@ export default function HomePage() {
   const [actors, setActors] = useState({});
   const [ttl, setTtl] = useState();
 
-  let arr = [];
-
-  // for (let i = 0; i < actors.length; i++) {
-  //   arr.push(actors[i].person);
-  // }
-//  for (let i of actors[0]){
-//   console.log(i)
-  // arr.push(i)
-//  }
  console.log(actors)
 
 useEffect(() => {
@@ -26,10 +17,15 @@ useEffect(() => {
 
   }, []);
   const deleteFiled = (id) => {
-    console.log(id);
     Delete(id, "http://localhost:4000/actor");
-    setActors(delete actors.id);
-    handleClose();
+
+    setActors(current =>
+      current.filter(actors => {
+        return actors !== id 
+      }
+      ))
+      handleClose();
+  
   };
 
   const handleSubmit = (event) => {

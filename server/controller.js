@@ -7,7 +7,6 @@ const externalUrl = "https://api.tvmaze.com/shows/1/cast";
 
 export function get() {
   if (myCache.keys().length > 1) {
-    console.log(myCache.keys());
     console.log("from cache");
     myCache.mget(myCache.keys());
   } else {
@@ -44,13 +43,10 @@ export function deleteData(req, res) {
 export function changeTtl(req, res) {
   for (let element of myCache.keys()) {
     myCache.ttl(element, req.body.time);
-
-    console.log(myCache.getTtl(element));
   }
 
   res.send({ messages: `the ttl is ${req.body.time}` });
 }
-
 
 export function PostTxtFile(req, res) {
   const content = JSON.stringify(req.body);
