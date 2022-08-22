@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Delete, Get, Post } from "../BaseService";
+import { Delete, Get, Get1, Post } from "../BaseService";
 import { Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { ModalDelete } from "../componentsToFunctions";
@@ -7,19 +7,23 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function HomePage() {
-  const [actors, setActors] = useState([]);
+  const [actors, setActors] = useState({});
   const [ttl, setTtl] = useState();
 
   let arr = [];
 
-  for (let i = 0; i < actors.length; i++) {
-    arr.push(actors[i].person);
-  }
+  // for (let i = 0; i < actors.length; i++) {
+  //   arr.push(actors[i].person);
+  // }
+//  for (let i of actors[0]){
+//   console.log(i)
+  // arr.push(i)
+//  }
+ console.log(actors)
 
-  console.log(arr);
+useEffect(() => {
+  Get(setActors, "http://localhost:4000/actor");
 
-  useEffect(() => {
-    Get(setActors, "http://localhost:4000/actor");
   }, []);
   const deleteFiled = (id) => {
     console.log(id);
@@ -38,7 +42,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <h1>actorss id</h1>
+      <h1>actors id</h1>
       <div>
         <form onSubmit={handleSubmit}>
           enter time to refresh cache (in seconds):
@@ -63,22 +67,22 @@ export default function HomePage() {
               <th>view</th>
               <th>delete</th>
             </tr>
-            {arr.map((item, i) => (
+            {!!actors.length && actors.map((item, i) => (
               <tr key={i}>
-                <td>{item.id}</td>
+                <td>{item}</td>
                 <td>
                   <Link
                     className="button-33"
                     state={{ data: item, index: i }}
-                    to={`/properties/${item.id}`}
+                    to={`/properties/${item}`}
                   >
                     <BsSearch />
                   </Link>
                 </td>
                 <td>
                   <ModalDelete
-                    confirmFunc={() => deleteFiled(item.id)}
-                    text={`?${item.id} האם אתה בטוח שאתה מעוניין למחוק את`}
+                    confirmFunc={() => deleteFiled(item)}
+                    text={`?${item} האם אתה בטוח שאתה מעוניין למחוק את`}
                   />
                 </td>
               </tr>
