@@ -21,10 +21,9 @@ export function get() {
       });
   }
 }
-get();
 
 export function getIdsToActors(req, res) {
-  get();
+  get()
   return res.send(myCache.keys());
 }
 
@@ -43,7 +42,6 @@ export function changeTimeCache(req, res) {
   for (let element of myCache.keys()) {
     myCache.ttl(element, req.body.time);
   }
-  get();
   res.send({ messages: `the ttl is ${req.body.time}` });
 }
 
