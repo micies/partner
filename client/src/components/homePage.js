@@ -75,7 +75,7 @@ export default function HomePage() {
                   <td>
                     <ModalDelete
                       confirmFunc={() => deleteFiled(item)}
-                      text={`?${item} האם אתה בטוח שאתה מעוניין למחוק את`}
+                      text={`?${item} Are you sure you want to delete the`}
                     />
                   </td>
                 </tr>
