@@ -1,15 +1,14 @@
 import express from 'express';
-import { getData , PostTxtFile, getTxtFile, deleteData, changeTtl, getById} from './controller.js';
-
+import { changeTimeCache , getIdsToActors, readRemark, getActor, deleteItem, writeRemark} from './controller.js';
 
 
 const router  = express.Router();
-router.post("/ttl", changeTtl)
-router.get("/actor", getData)
-router.get("/actor/properties", getTxtFile)
-router.get("/actor/:id", getById)
-router.delete("/actor/:id", deleteData)
-router.post("/actor/properties", PostTxtFile)
+router.post("/timeCache", changeTimeCache)
+router.get("/actor", getIdsToActors)
+router.get("/actor/properties", readRemark)
+router.get("/actor/:id", getActor)
+router.delete("/actor/:id", deleteItem)
+router.post("/actor/properties", writeRemark)
 
 
 router.get("/", (req, res) => {

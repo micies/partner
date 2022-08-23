@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { BsTrashFill } from "react-icons/bs";
 
-export function GetInput({ value, id,onChange, name, disabled }) {
+export function Input({ value, id,onChange, name, disabled }) {
   return (
     <div className="form-group">
       <input
@@ -37,15 +37,15 @@ export function ModalDelete({ confirmFunc, text }) {
 
       <Modal show={show} onHide={handleClose} animation={true}>
         <Modal.Header>
-          <Modal.Title> מחיקת id </Modal.Title>
+          <Modal.Title> delete id </Modal.Title>
         </Modal.Header>
         <Modal.Body>{text}</Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={()=>{confirmFunc(); handleClose()}}>
-            מחק 
+            delete 
           </Button>
           <Button variant="secondary" onClick={handleClose}>
-            יציאה
+            back
           </Button>
         </Modal.Footer>
       </Modal>

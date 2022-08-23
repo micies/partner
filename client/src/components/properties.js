@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Get, GetById, Post } from "../BaseService";
 import { useParams, useNavigate } from "react-router-dom";
-import { GetInput } from "../componentsToFunctions";
+import { Input } from "../componentsToFunctions";
 
 export default function Properties() {
   const [actorById, setActorById] = useState({});
   const { id } = useParams();
-  const [inputData, setInputData] = useState({});
+  const [inputRemark, setInputRemark] = useState({});
   const urlProperties = "http://localhost:4000/actor/properties";
   let navigate = useNavigate();
 
   useEffect(() => {
     GetById("http://localhost:4000/actor", id, setActorById);
-    Get(urlProperties, setInputData);
+    Get(urlProperties, setInputRemark);
   }, []);
   console.log(actorById);
 
-  const submitToProperties = () => {
-    Post(urlProperties, inputData);
+  const submitProperties = () => {
+    Post(urlProperties, inputRemark);
     navigate('/home');
   };
 
   const handleChange = (event) => {
-    setInputData({
-      ...inputData,
+    setInputRemark({
+      ...inputRemark,
       [event.target.name]: event.target.value,
     });
   };
@@ -31,24 +31,24 @@ export default function Properties() {
   return (
     <div>
       <h2> Properties </h2>
-      id
-      <GetInput value={actorById.id} name={"id"} disabled={true} />
-      name
-      <GetInput value={actorById.name} name={"name"} disabled={true} />
-      gender
-      <GetInput value={actorById.gender} name={"gender"} disabled={true} />
-      birthday
-      <GetInput value={actorById.birthday} name={"birthday"} disabled={true} />
-      <h4>remark</h4>
-      <GetInput
-        value={inputData[id]}
+      Id
+      <Input value={actorById.id} name={"id"} disabled={true} />
+      Name
+      <Input value={actorById.name} name={"name"} disabled={true} />
+      Gender
+      <Input value={actorById.gender} name={"gender"} disabled={true} />
+      Birthday
+      <Input value={actorById.birthday} name={"birthday"} disabled={true} />
+      <h4>Remark</h4>
+      <Input
+        value={inputRemark[id]}
         name={id}
         onChange={(e) => handleChange(e)}
         id="textarea"
       />
       <div>
         <div className="button">
-          <button className="button-3" onClick={submitToProperties}>
+          <button className="button-3" onClick={submitProperties}>
             save
           </button>
         </div>

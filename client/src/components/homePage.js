@@ -13,6 +13,7 @@ export default function HomePage() {
   console.log(actors);
 
   const urlActor = 'http://localhost:4000/actor'
+  
   useEffect(() => {
     Get(urlActor, setActors);
   }, []);
@@ -29,13 +30,12 @@ export default function HomePage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    Post( "http://localhost:4000/ttl", { time: ttl });
+    Post( "http://localhost:4000/timeCache", { time: ttl });
     toast.success(`the ttl is ${ttl}`);
   };
 
   return (
     <div>
-      <h1>actors id</h1>
       <div>
         <form onSubmit={handleSubmit}>
           enter time to refresh cache (in seconds):
@@ -43,7 +43,7 @@ export default function HomePage() {
             onChange={(e) => setTtl(e.target.value)}
             type="number"
             min={4}
-          />
+            />
           <div className="button">
             <button className="button-3" type="submit">
               Submit time
@@ -52,6 +52,7 @@ export default function HomePage() {
           <ToastContainer />
         </form>
       </div>
+            <h1>actors id</h1>
       <div>
         <table className="center">
           <thead>

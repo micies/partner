@@ -1,8 +1,8 @@
 import fetch from "node-fetch";
 import fs from "fs";
 import NodeCache from "node-cache";
-const time = 300;
-const myCache = new NodeCache({ stdTTL: time });
+
+const myCache = new NodeCache({ stdTTL: 300 });
 const externalUrl = "https://api.tvmaze.com/shows/1/cast";
 
 export function get() {
@@ -23,34 +23,31 @@ export function get() {
 }
 get();
 
-export function getData(req, res) {
+export function getIdsToActors(req, res) {
   get();
   return res.send(myCache.keys());
 }
 
-export function getById(req, res) {
+export function getActor(req, res) {
   const { id } = req.params;
   return res.send(myCache.get(id));
 }
 
-export function deleteData(req, res) {
+export function deleteItem(req, res) {
   const { id } = req.params;
   myCache.del(id);
-
   return res.send("deleted");
 }
 
-export function changeTtl(req, res) {
+export function changeTimeCache(req, res) {
   for (let element of myCache.keys()) {
     myCache.ttl(element, req.body.time);
   }
-  get()
-
-
+  get();
   res.send({ messages: `the ttl is ${req.body.time}` });
 }
 
-export function PostTxtFile(req, res) {
+export function writeRemark(req, res) {
   const content = JSON.stringify(req.body);
 
   fs.writeFile(process.cwd() + "/properties.txt", content, (err) => {
@@ -61,16 +58,12 @@ export function PostTxtFile(req, res) {
   });
 }
 
-export function getTxtFile(req, res) {
-  try {
-    const data = fs.readFileSync(process.cwd() + "/properties.txt", "utf8");
+export function readRemark(req, res) {
+  fs.readFile(process.cwd() + "/properties.txt", "utf8", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
     res.send(data);
-  } catch (err) {
-    console.error(err);
-  }
+  });
 }
-
-
-
-
-  
