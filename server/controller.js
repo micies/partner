@@ -44,6 +44,8 @@ export function changeTtl(req, res) {
   for (let element of myCache.keys()) {
     myCache.ttl(element, req.body.time);
   }
+  get()
+
 
   res.send({ messages: `the ttl is ${req.body.time}` });
 }
@@ -67,3 +69,8 @@ export function getTxtFile(req, res) {
     console.error(err);
   }
 }
+
+
+
+
+  

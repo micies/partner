@@ -14,6 +14,6 @@ router.post("/actor/properties", PostTxtFile)
 
 router.get("/", (req, res) => {
   res.send("Let's build a CRUD API!");
-});
+}); 
 
 export default router; 

@@ -1,27 +1,24 @@
 import React, { useState, useEffect } from "react";
-
 import { Get, GetById, Post } from "../BaseService";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from "react-router-dom";
+import { GetInput } from "../componentsToFunctions";
 
 export default function Properties() {
   const [actorById, setActorById] = useState({});
   const { id } = useParams();
-
-
   const [inputData, setInputData] = useState({});
+  const urlProperties = "http://localhost:4000/actor/properties";
+  let navigate = useNavigate();
 
-  
   useEffect(() => {
-    GetById('http://localhost:4000/actor', id, setActorById)
-    Get(setInputData, "http://localhost:4000/actor/properties");
+    GetById("http://localhost:4000/actor", id, setActorById);
+    Get(urlProperties, setInputData);
   }, []);
-  console.log(actorById)
+  console.log(actorById);
 
   const submitToProperties = () => {
-    Post(inputData, "http://localhost:4000/actor/properties");
-    toast.success(`the remark  ${inputData[id]} saved`);
+    Post(urlProperties, inputData);
+    navigate('/home');
   };
 
   const handleChange = (event) => {
@@ -35,36 +32,25 @@ export default function Properties() {
     <div>
       <h2> Properties </h2>
       id
-      <div className="form-group">
-      <input className="form-group"  type="text" value={actorById.id} name={"id"} disabled />
-      </div>
+      <GetInput value={actorById.id} name={"id"} disabled={true} />
       name
-      <div className="form-group">
-      <input className="form-group" type="text" value={actorById.name} name={"name"} disabled />
-      </div>
+      <GetInput value={actorById.name} name={"name"} disabled={true} />
       gender
-      <div className="form-group">
-      <input className="form-group" type="text" value={actorById.gender} name={"gender"} disabled />
-      </div>
+      <GetInput value={actorById.gender} name={"gender"} disabled={true} />
       birthday
-      <div className="form-group">
-      <input className="form-group" type="text" value={actorById.birthday} name={"birthday"} disabled />
-      </div>
+      <GetInput value={actorById.birthday} name={"birthday"} disabled={true} />
+      <h4>remark</h4>
+      <GetInput
+        value={inputData[id]}
+        name={id}
+        onChange={(e) => handleChange(e)}
+        id="textarea"
+      />
       <div>
-        <h4>remark</h4>
-        <input
-          type="text"
-          className="textarea"
-          value={inputData[id]}
-          onChange={(e) => handleChange(e)}
-          name={id}
-        />
-
         <div className="button">
-          <button className="button-3" onClick={() => submitToProperties()}>
+          <button className="button-3" onClick={submitToProperties}>
             save
           </button>
-          <ToastContainer />
         </div>
       </div>
       <a className="button-33" href="/home" rel="noreferrer">

@@ -1,4 +1,4 @@
-export function Get(data, BaseUrl) {
+export function Get(BaseUrl, data) {
   fetch(`${BaseUrl}`, {
     method: "GET",
     headers: {
@@ -9,13 +9,13 @@ export function Get(data, BaseUrl) {
     .then((res) => data(res));
 }
 
-export function Delete(id, BaseUrl) {
+export function Delete(BaseUrl, id) {
   fetch(`${BaseUrl}/${id}`, {
     method: "DELETE",
   });
 }
 
-export function Post(data, BaseUrl) {
+export function Post( BaseUrl, data) {
   fetch(`${BaseUrl}`, {
     method: "POST",
     headers: {
